@@ -1,0 +1,73 @@
+﻿<Controls:MetroWindow x:Class="Quora.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Quora"
+        xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:properties="clr-namespace:Quora.Properties"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="MainWindow" Height="350" Width="800" d:DataContext="{d:DesignInstance local:MainWindow}">
+    <Controls:MetroWindow.LeftWindowCommands>
+        <Controls:WindowCommands>
+            <Button Click="LaunchQuora_OnClick"
+                    ToolTip="Quora on GitHub">
+                <Rectangle Width="22"
+                           Height="22"
+                           Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">
+                    <Rectangle.OpacityMask>
+                        <VisualBrush Stretch="Uniform"
+                                     Visual="{StaticResource appbar_github}" />
+                    </Rectangle.OpacityMask>
+                </Rectangle>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.LeftWindowCommands>
+    <Controls:MetroContentControl>
+        <Grid Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Column="0" Grid.Row="0" Content="API key:" FontWeight="Black" FontSize="30" Margin="15,0,0,0"/>
+            <TextBox Grid.Column="1" Grid.Row="0" Text="{Binding Source={x:Static properties:Settings.Default}, Path=ApiKey}" Margin="15,0,0,0" Foreground="BlueViolet"  FontWeight="Black" FontSize="14" Height="30" Width="200" HorizontalAlignment="Left"/>
+            <Label Grid.Column="2" Grid.Row="0" Grid.ColumnSpan="4" Content="{Binding CaptchaCount}" ContentStringFormat="Solved captchas count: {0}" FontWeight="Black" FontSize="20" Margin="15,0,0,0" HorizontalAlignment="Left"/>
+            
+            <Button Grid.Column="0" Grid.Row="1" x:Name="ButtonXlsReg" Click="ButtonXlsReg_OnClick" Content="Set reg file" Margin="15,0,0,0" Foreground="BlueViolet"  FontWeight="Black" FontSize="14" Height="30" Width="100" HorizontalAlignment="Left"/>
+            <Label Grid.Column="1" Grid.Row="1" Content="{Binding RegCount}" ContentStringFormat="Persons count: {0}" FontWeight="Black" FontSize="20" Margin="15,0,0,0" Width="200"/>
+            <Button Grid.Column="3" Grid.Row="1" x:Name="ConfStart" Click="ButtonConfStart_OnClick" Content="Start conf" Margin="15,0,0,0" Foreground="BlueViolet"  FontWeight="Black" FontSize="14" Height="30" Width="100" HorizontalAlignment="Left"/>
+            <Button Grid.Column="2" Grid.Row="1" x:Name="RegStart" Click="ButtonRegStart_OnClick" Content="Start reg" Margin="15,0,0,0" Foreground="BlueViolet"  FontWeight="Black" FontSize="14" Height="30" Width="100" HorizontalAlignment="Left"/>
+            <Button Grid.Column="4" Grid.Row="1" x:Name="RegStop" Click="ButtonRegStop_OnClick" Content="Stop" Margin="15,0,0,0" Foreground="BlueViolet"  FontWeight="Black" FontSize="14" Height="30" Width="100" HorizontalAlignment="Left"/>
+
+            <DataGrid Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="6"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                      RenderOptions.ClearTypeHint="Enabled"
+                      TextOptions.TextFormattingMode="Display"
+                      Margin="0,20,0,0" FontSize="15"
+                      SelectionUnit="FullRow"
+                      ItemsSource="{Binding Path = DataItemsLog}"
+                      AutoGenerateColumns="False"
+					  VerticalScrollBarVisibility="Auto"
+					  HorizontalScrollBarVisibility="Auto"
+                      CanUserAddRows="False"
+                      GridLinesVisibility="All">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="log" Binding="{Binding}" MinWidth="300"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Controls:MetroContentControl>
+</Controls:MetroWindow>
